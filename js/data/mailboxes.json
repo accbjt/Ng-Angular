@@ -1,0 +1,11 @@
+{
+  "mailboxes": [
+  {"name": "inbox", 
+    "type": "default"},
+  {"name": "starred", 
+    "type": "default"},
+  {"name": "important", 
+    "type": "default"},
+  {"name": "drafts", 
+    "type": "default"}
+]}

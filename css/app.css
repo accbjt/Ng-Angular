@@ -1,0 +1,42 @@
+body {
+}
+
+ul {
+  
+}
+ul li {
+  list-style-type: none;
+}
+ul li:hover {
+  background: #eee;
+}
+#accountlisting {
+  background: #999;
+  -moz-border-radius: 15px;
+  border-radius: 3px;
+}
+.top-bar {
+  background-color: #eee;
+  color: #000;
+}
+.top-bar .name h1 a {
+  color: #111;
+}
+#emailListing {
+  margin-top: 20px;
+}
+.emailListing {
+  height: 120px;
+  overflow: hidden;
+  padding: 13px;
+}
+.emailListing img {
+}
+.emailListing .date {
+  font-size: 0.5em;
+  color: blue;
+  display: none;
+}
+.emailListing .subject {
+  font-size: 0.8em;
+}
