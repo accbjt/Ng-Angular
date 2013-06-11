@@ -56,8 +56,9 @@
   </script>
   
   <script type="text/ng-template" id="sidebar.html">
+    <input type="search" placeholder="Filter messages" ng-model="search.$" />
     <ul id="emailListing">
-      <li ng-repeat="mail in email.all" ng-click="showEmail(mail.id)"> 
+      <li ng-repeat="mail in (email.all|filter: search.$)" ng-click="showEmail(mail.id)"> 
         <div class="emailListing row">
           <img class="large-3 columns" src="{{gravatarImageFor(mail.from[0])}}" />
           <div class="large-8 columns from">{{mail.from.join(', ')}}</div>
