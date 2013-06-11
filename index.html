@@ -22,14 +22,14 @@
 
       <section class="top-bar-section">
         &nbsp;
-      </section
+      </section>
     </nav>
     
     <div class="row">
       <div id="mailbox_container" class="large-4 columns" ng-controller="MailListController">
         <div ng-include src="'sidebar.html'"></div>
       </div>
-      <div class="large-8 columns">
+      <div class="large-8 small-6 columns">
         <div id="stage" ng-view></div>
       </div>
     </div>
@@ -38,7 +38,7 @@
   <script type="text/ng-template" id="home.html">
   <div ng-show="!email"><h1>No conversation selected</h1></div>
   <div ng-show="email">
-    <table class="email large-12">
+    <table id="email" class="large-12">
     <thead>
     <tr><td><b>From: </b><span>{{email.from.join(', ')}}</span></td></tr>
     <tr><td><b>To: </b><span>{{email.to.join(', ')}}</span></td></tr>
@@ -56,17 +56,19 @@
   </script>
   
   <script type="text/ng-template" id="sidebar.html">
-    <input type="search" placeholder="Filter messages" ng-model="search.$" />
-    <ul id="emailListing">
-      <li ng-repeat="mail in (email.all|filter: search.$)" ng-click="showEmail(mail.id)"> 
-        <div class="emailListing row">
-          <img class="large-3 columns" src="{{gravatarImageFor(mail.from[0])}}" />
-          <div class="large-8 columns from">{{mail.from.join(', ')}}</div>
-          <div class="large-8 subject columns">{{mail.subject}}</div>
-          <div class="large-1 date">{{mail.sent_at|date:'MM/dd/yy'}}</div>
-        </div>
-      </li>
-    </ul>
+    <div id="sidebar">
+      <input type="search" placeholder="Filter messages" ng-model="search.$" />
+      <ul id="emailListing">
+        <li ng-repeat="mail in (email.all|filter: search.$)" ng-click="showEmail(mail.id)"> 
+          <div class="emailListing row" ng-class="{'selected': isSelected(mail) }">
+            <img class="large-3 columns" src="{{gravatarImageFor(mail.from[0])}}" />
+            <div class="large-8 columns from">{{mail.from.join(', ')}}</div>
+            <div class="large-8 subject columns">{{mail.subject}}</div>
+            <div class="large-1 date">{{mail.sent_at|date:'MM/dd/yy'}}</div>
+          </div>
+        </li>
+      </ul>
+    </div>
   </script>
   
   <script src="js/vendor/angular.min.js"></script>

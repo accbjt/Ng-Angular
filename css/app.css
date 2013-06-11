@@ -24,6 +24,9 @@ ul li:hover {
 }
 #emailListing {
   margin-top: 20px;
+  overflow-y: scroll;
+}
+#email {
 }
 .emailListing {
   height: 120px;
@@ -39,4 +42,7 @@ ul li:hover {
 }
 .emailListing .subject {
   font-size: 0.8em;
+}
+#sidebar .selected {
+  background: #bbb;
 }
