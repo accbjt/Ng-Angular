@@ -9,6 +9,6 @@ class App < Sinatra::Base
   end
   
   get '/api/:p' do
-    File.read(File.expand_path('js/data/' + params['p'] + '.json', settings.root))
+    File.read(File.expand_path('data/' + params['p'] + '.json', File.dirname(__FILE__)))
   end
 end

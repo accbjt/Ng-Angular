@@ -6,15 +6,7 @@ require 'bundler'
 ENV["RACK_ENV"] ||= "development"
 Bundler.require(:default, ENV["RACK_ENV"].to_sym)
 
-EventMachine.run do
-  require "app"
-  require "websocket_app"
-
-  EventMachine::WebSocket.start(host: '0.0.0.0', port: 9801) do |ws|
-    WebsocketApp.new(ws)
-  end
-
-  App.run!(port: 9800)
-end
+require "app"
+App.run!(port: 9800)
 
 exit

@@ -16,11 +16,14 @@ ul li:hover {
   border-radius: 3px;
 }
 .top-bar {
-  background-color: #fff;
   color: #000;
 }
 .top-bar .name h1 a {
   color: #111;
+}
+.spinner {
+  height: 25px;
+  width: 25px;
 }
 #emailListing {
   margin-top: 20px;
