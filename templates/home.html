@@ -15,15 +15,30 @@
         <h1>No conversation selected</h1>
     </div>
     <div ng-show="selectedMail">
+        <form id="replyForm" ng-submit="sendEmailReply()" ng-show="showingReply" >
+            <div class="row collapse">
+                <div class="small-1 columns">
+                    <span class="prefix">To</span>
+                </div>
+                <div class="small-11 columns">
+                    <input ng-model="reply.to" type="email" placeholder=""/>
+                </div>
+                <div class="small-12 columns">
+                    <textarea ng-model="reply.body">{{ reply.body }}</textarea>
+                </div>
+            </div>
+            <button class="button radius" ng-click="sendReply()">Send</button>
+            <button class="button radius alert" ng-click="toggleReplyForm()">Cancel</button>
+        </form>
         <div class="row-header">
             <div class="small-6 columns">{{ selectedMail.subject }}</div>
-            <div class="small-6 columns">{{ selectedMail.sent_at | date: 'mm/dd/yy' }}</div>
+            <div class="small-6 columns">{{ selectedMail.sent_at | date: 'MM/dd/yy' }}</div>
             <div class="row actions">
                 <div class="small-8 columns">{{ selectedMail.from.join(',') }} to {{selectedMail.to}}</div>
-                <a ng-click="showReply()" class="button radius push-1">Reply</a>
+                <a ng-click="toggleReplyForm()" class="button radius push-1">Reply</a>
             </div>
 
         </div>
-        <div class="small-12 columns" ng-bind="selectedMail.body"></div>
+        <div class="small-12 columns" ng-bind-html-unsafe="selectedMail.body"></div>
     </div>
 </div>

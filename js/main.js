@@ -42,16 +42,26 @@ app.controller('MailListingController', ['$scope', '$http', function($scope, $ht
 
 }]);
 
-app.controller('ContentController', function($scope){
+app.controller('ContentController', ['$scope', function($scope){
+    $scope.showingReply = false;
+    $scope.reply = {};
 
-});
+
+    $scope.toggleReplyForm = function(){
+        $scope.showingReply = !$scope.showingReply;
+        $scope.reply = {};
+        $scope.reply.to = $scope.selectedMail.from.join(", ");
+        $scope.reply.body = "\n\n ----------------\n\n" + $scope.selectedMail.body;
+
+    }
+}]);
 
 app.controller('SettingsController', function($scope){
     $scope.settings = {
         name: "Ari",
         email: "me@example.com"
 
-    }
+    };
 
     $scope.updateSettings = function(){
         console.log ("updateSettings was called");
