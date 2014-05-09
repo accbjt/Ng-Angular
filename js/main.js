@@ -12,6 +12,35 @@ app.config(function($routeProvider){
         .otherwise({redirectTo: '/'});
 });
 
+app.service('mailService', ['$http', '$q', function($http, $q){
+    var getMail = function(){
+        return $http({
+            method: 'GET',
+            url: '/api/mail'
+
+        })
+    };
+
+    var sendEmail = function(mail){
+        var d =$q.defer();
+        $http({
+            method: 'POST',
+            data: mail,
+            url: 'api/send'
+        }).success(function(data, status, headers){
+            d.resolve(data);
+        }).error(function(data, status, headers){
+            d.reject(data);
+        });
+        return d.promise;
+    };
+
+    return{
+        getMail: getMail,
+        sendMail: sendMail
+    };
+}]);
+
 app.controller('HomeController', function($scope){
     $scope.selectedMail;
 
@@ -26,23 +55,20 @@ app.controller('HomeController', function($scope){
     }
 });
 
-app.controller('MailListingController', ['$scope', '$http', function($scope, $http){
-    $scope.email = [];
+app.controller('MailListingController', ['$scope', 'mailService', function($scope, $http){
+    $scope.email = []
 
-    $http({
-        method: 'GET',
-        url: '/api/mail'
-    })
+        mailService.getMail()
         .success(function(data, status, headers){
             $scope.email = data.all;
         })
         .error(function(data, status, headers){
 
-        })
+        });
 
 }]);
 
-app.controller('ContentController', ['$scope', function($scope){
+app.controller('ContentController', ['$scope', '$rootScope', 'mailService', function($scope, mailService, $rootScope){
     $scope.showingReply = false;
     $scope.reply = {};
 
@@ -51,9 +77,22 @@ app.controller('ContentController', ['$scope', function($scope){
         $scope.showingReply = !$scope.showingReply;
         $scope.reply = {};
         $scope.reply.to = $scope.selectedMail.from.join(", ");
-        $scope.reply.body = "\n\n ----------------\n\n" + $scope.selectedMail.body;
+        $scope.reply.body = "\n\n ---------------- \n\n" + $scope.selectedMail.body;
+    };
 
-    }
+    $scope.sendReply = function(){
+        $scope.showingReply = false;
+        mailService.sendEmail($scope.reply)
+            .then(function(status){
+
+            }, function(err){
+
+            });
+    };
+
+    $scope.$watch('selectedMail', function(evt){
+        $scope.showingReply = false;
+    })
 }]);
 
 app.controller('SettingsController', function($scope){
